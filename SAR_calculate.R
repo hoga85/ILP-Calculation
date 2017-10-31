@@ -30,7 +30,7 @@ rm(list=ls())
     NoScreen=1
 
 #2. The filename of the data, which is recorded and continues being updated by Labview
-    FILENAME <-"Oct19_Alex_2ch_18_4V.txt" 
+    FILENAME <-"Sample_Data.txt" 
 
 #3. Depends on the measurement, the initial SAR may be undesired. By changing the SARstartTime,
 #   the initial SAR can be elimiated from the plot
@@ -41,7 +41,7 @@ rm(list=ls())
     csvName<- paste0("HT_",substr(FILENAME,1,nchar(FILENAME)-4),".csv")
 
 #5. Concentration for SAR
-    Concnetration <-0.71
+    Concnetration <-8.68
 
 
 
@@ -133,12 +133,12 @@ par(oma=c(0,0,2,0))
 		plot(t,T1,pch = 1,col = 1, 
    		  xlim=range(t),ylim = range(T1),
    		  xlab = "Time (sec)", 
-  		   ylab = "Temperature (°C)",
+  		   ylab = "Temperature (Â°C)",
   		   main = "Heating Curve") 
 		grid()
             abline(h =T1[1],  lty = 3,col=4)
             abline(h =T1[length(T1)],  lty = 3,col=4)
-            mtext(substitute(paste(Delta,"T = ", m,"°C"),
+            mtext(substitute(paste(Delta,"T = ", m,"Â°C"),
                              list(m=T1[length(T1)]-T1[1])) ,side=4,col=1)            
 
 		            ################Text in Plot####################
@@ -202,8 +202,8 @@ par(oma=c(0,0,2,0))
 
                         ################Text in Plot####################
              		text( mean(t),1.1*max(SAR),
-                 			substitute(atop(paste("SAR = ",meanSAR," ± ",sdSAR," W/g","\n"),
-                                         atop(paste("ILP = ",meanILP," ± ",sdILP," nHm"^"2","/kg"),
+                 			substitute(atop(paste("SAR = ",meanSAR," Â± ",sdSAR," W/g","\n"),
+                                         atop(paste("ILP = ",meanILP," Â± ",sdILP," nHm"^"2","/kg"),
                                               paste("L =",meanL," W/K.g" )
                                               )),
                                          list(meanILP =round(mean(ILP),digits=2), 
@@ -229,8 +229,8 @@ par(oma=c(0,0,2,0))
 
                         ################Text in Plot####################
              		text( mean(t),1.1*max(ILP),
-                 			substitute(atop(paste("ILP = ",meanILP," ± ",sdILP," nHm"^"2","/kg"),
-                                         atop(paste("SAR = ",meanSAR," ± ",sdSAR," W/g","\n"),
+                 			substitute(atop(paste("ILP = ",meanILP," Â± ",sdILP," nHm"^"2","/kg"),
+                                         atop(paste("SAR = ",meanSAR," Â± ",sdSAR," W/g","\n"),
                                               paste("L =",meanL," W/K.g" )
                                               )),
                                          list(meanILP =round(mean(ILP),digits=2), 
