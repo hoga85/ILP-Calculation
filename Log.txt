@@ -1,0 +1,2 @@
+12/13/2017
+Examine the heating curve before the ILP calculation. For some reasons, the heating curve of a sample may be affected by the surroudings. As a result, the heating curve may not be able to represent the actual heating power of a sample. However, this condition cannot be detected by the current code. A code to fit the actual heating curve to the theorical model is necessary. The update of current code is to fulfill this verification.

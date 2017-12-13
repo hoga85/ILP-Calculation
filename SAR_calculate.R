@@ -10,6 +10,7 @@ rm(list=ls())
 	source("R_lib/TimeSampleInOut.R")
 	source("R_lib/calSAR.R")
 	source("R_lib/multiHeatingCurve.R")
+  source("R_lib/HTcurveFit.R")
 
 	#######Unused Functions##############	
 	#source("R_lib/PeriododicDataNLF.R")#
@@ -72,25 +73,38 @@ data1 <-  fread(FILENAME)   ##### Input Name of Data
     data<-multiplePlot(startData,EndData,
                         TimeFactor,SampleName,dataAll,
                         TimeSampleIn,PlotOn)
-
-		t<-data$t 
+    
+    #data$t<-1:length(data$t)#for badSample_Data.txt
+    t<-data$t 
 		#f<-data$f
 		T1<-data$T1
 		#H<-data$H
+		par(mfrow=c(1,1))
+		
 
     plot(t,T1)
     Period = round(locator(2)$x) -1
 
     data <- data[Period[1]:Period[2],]
 		
-            t<-data$t -min(data$t) 
+    t<-data$t -min(data$t) 
 		f<-data$f
 		T1<-data$T1
     T3<-data$T3
 		H<-data$H/1000
 
 
-
+#########################################
+##Verify the Heating Curve of the sample#
+#########################################
+		HTfit <- HTcurveFit(t,T1)
+		plot(t,T1)
+		lines(t,predict(HTfit),col='red')
+		corCoef <- cor(T1,predict(HTfit))
+		print(paste0("The correlation coefficient is ", round(corCoef,digits = 4)))
+		readline(prompt="Press [enter] to continue") 
+		
+		
 ########################################
 ##Use calSAR to calculate SAR instantly#
 ########################################
@@ -135,6 +149,8 @@ par(oma=c(0,0,2,0))
    		  xlab = "Time (sec)", 
   		   ylab = "Temperature (°C)",
   		   main = "Heating Curve") 
+		lines(t,predict(HTfit),col='red')
+		
 		grid()
             abline(h =T1[1],  lty = 3,col=4)
             abline(h =T1[length(T1)],  lty = 3,col=4)
